@@ -84,4 +84,6 @@ jobs:
           script_stop: true
           envs: SHA,IMAGE
           script: |
-            SHA=$SHA;IMAGE=$IMAGE;kubectl set image deployment/summer2020-help summer2020-help=$IMAGE:$SHA -n summer2020
+            SHA=$SHA;IMAGE=$IMAGE;kubectl set image deployment/summer2020-help summer2020-help=$IMAGE:$SHA -n summer2020;
+            sleep 20
+            kubectl get pod -n summer2020
