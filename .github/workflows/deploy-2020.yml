@@ -3,9 +3,11 @@ name: deploy
 on:
   push:
     branches: [ 2020 ]
+  pull_request:
+    branches: [ 2020 ]
 
 env:
-  REGISTRY: swr.cn-north-4.myhuaweicloud.com
+  REGISTRY: swr.ap-southeast-1.myhuaweicloud.com
 
   IMAGE_NAME: summer-ospp/help
 
