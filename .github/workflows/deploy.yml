@@ -36,11 +36,16 @@ jobs:
           username: ${{ secrets.SWR_ACCESS_KEY_ID }}
           password: ${{ secrets.SWR_ACCESS_KEY_SECRET }}
 
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: ${{ github.GITHUB_REF }}
