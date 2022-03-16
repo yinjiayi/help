@@ -68,3 +68,21 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.metb.outputs.tags }}
           labels: ${{ steps.metb.outputs.labels }}
+
+      - name: Deploy in Huawei CCE
+        if: github.event_name != 'pull_request'
+        uses: summer-ospp/ssh-action@v0.1.4
+        env:
+          SHA: ${{ github.sha }}
+          IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script_stop: true
+          envs: SHA,IMAGE
+          script: |
+            SHA=$SHA;IMAGE=$IMAGE;kubectl set image deployment/summer2021-help summer2021-help=$IMAGE:$SHA -n summer2021;
+            sleep 20
+            kubectl get pod -n summer2021
