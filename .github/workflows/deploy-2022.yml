@@ -45,7 +45,7 @@ jobs:
           tags: ${{ github.sha }}
 
       - name: Build and push Docker image
-        id: build-and-push
+        id: push-meta
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
@@ -61,7 +61,7 @@ jobs:
           tags: ${{ github.GITHUB_REF }}
 
       - name: Build and push Docker image
-        id: build-and-push
+        id: push-metb
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
