@@ -24,7 +24,6 @@ jobs:
       - run: gitbook fetch 3.2.3
       - run: gitbook install
       - run: gitbook build . public
-      - run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
